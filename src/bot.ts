@@ -54,9 +54,9 @@ const options = {
     inline_keyboard: [
       [
         {
-          text: "Play in 1 click  🐉",
+          text: "Play click",
           web_app: {
-            url: "https://erne.depay.io/"
+            url: "https://mini-app-rocket-game-6qmt.vercel.app/"
           }
         }
       ]
@@ -74,7 +74,7 @@ bot.onText(/\/start/, (msg: any) => {
 
   console.log("--//---myChatID----//---", chatId);
 
-  const welcomeMessage = "Hello! Welcome to the Erne Legacy Bot!";
+  const welcomeMessage = "Hello! Welcome to the Rocket Bot!";
 
   // Send the welcome message with the inline keyboard
   bot.sendMessage(chatId, welcomeMessage, options);
@@ -126,14 +126,27 @@ bot.on("message", async (msg: any) => {
     const startIndex = msg.text.indexOf(" ") + 1; // Find the index of the space and add 1 to get the start of the substring
     const subString = msg.text.substring(startIndex);
     try {
-      await axios.post(
-        `https://erne.depay.io/api/friend/add`,
-        {
-          username: subString,
-          friend: msg.from.username
-        }
-      );
-
+      const friend= subString;
+      const userName= msg.from.username
+      
+      let realName= ""
+      msg.from.first_name && (realName+=msg.from.first_name)
+      msg.from.last_name && (realName+=msg.from.last_name)
+      console.log(msg.from);
+      console.log(realName)
+      const headers = new Headers()
+      headers.append('Content-Type', 'application/json')
+      try {
+        await fetch('https://telegramminiapp-rocket-backend.onrender.com/add_friend', 
+          { 
+            method: 'POST', 
+            body: JSON.stringify({ userName: userName, realName: realName, friend:friend }), 
+            headers 
+          }
+        )  
+      } catch (error) {
+        console.log(error);
+      }
       console.log("--//---OK!!!--add friend--//---", subString, msg.from.username);
     } catch (error) {
       console.error(error);
