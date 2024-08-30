@@ -137,13 +137,14 @@ bot.on("message", async (msg: any) => {
       const headers = new Headers()
       headers.append('Content-Type', 'application/json')
       try {
+        if(userName !== friend){
         await fetch('https://telegramminiapp-rocket-backend.onrender.com/add_friend', 
           { 
             method: 'POST', 
             body: JSON.stringify({ userName: userName, realName: realName, friend:friend }), 
             headers 
           }
-        )  
+        )  }
       } catch (error) {
         console.log(error);
       }

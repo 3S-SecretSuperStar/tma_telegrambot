@@ -2,7 +2,7 @@
   "name": "Game-Bot",
   "version": "1.0.0",
   "description": "Please enjoy the bot!",
-  "main": "index.js",
+  "main": "bot.js",
   "scripts": {
     "build": "tsc",
     "start": "node ./dist/bot.js",
